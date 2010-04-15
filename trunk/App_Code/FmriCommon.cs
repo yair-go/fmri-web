@@ -20,7 +20,7 @@ public class FmriCommon
 
     public static string getOutImageDir(HttpServerUtility Server)
     {
-        return Server.MapPath(@"App_Data\Results") + "\\";
+        return Server.MapPath(@"Results") + "\\";
     }
 
     public static string md5(string input)

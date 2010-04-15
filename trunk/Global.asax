@@ -4,7 +4,7 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
-        Application["MatlabRunner"] = new MatlabRunner();
+        Application["MatlabRunner"] = new MatlabRunner(Server);
     }
     
     void Application_End(object sender, EventArgs e) 
