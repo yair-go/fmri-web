@@ -6,9 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 
-public partial class _Analyze: System.Web.UI.Page 
+public partial class Analyze: System.Web.UI.Page 
 {
-    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
@@ -27,7 +26,7 @@ public partial class _Analyze: System.Web.UI.Page
         lblDebugReport.Text += msg + "<br />";
     }
 
-    private string execute(string imageName,
+    private void execute(string imageName,
         int x1, int x2,
         int y1, int y2,
         int z1, int z2,
@@ -40,14 +39,25 @@ public partial class _Analyze: System.Web.UI.Page
         debugString("Threshold: " + threshold);
 
         FmriRequest req = new FmriRequest(imageName, x1, x2, y1, y2, z1, z2, threshold);
+        refStr.Value = req.AreaStringWithThresholdMD5;
+
         debugString("AreaString: " + req.AreaString + " (" + req.AreaStringMD5 + ")");
         debugString("AreaStringWithThreshold: " + req.AreaStringWithThreshold + " (" + req.AreaStringWithThresholdMD5 + ")");
 
-        MatlabRunner m = (MatlabRunner) Application["MatlabRunner"];
-        m.EnqueueRequest(req);
-        debugString("Posted.");
-
-        return req.AreaStringWithThresholdMD5;
+        if (FmriCommon.isOutImageExists(req.AreaStringWithThresholdMD5, Server))
+        {
+            debugString("Filename: \"" + FmriCommon.getOutImageDir(Server) + req.AreaStringWithThresholdMD5 + ".png" + "\" exists. good.");
+            lblRef.ForeColor = System.Drawing.Color.Green;
+            lblRef.Text = "Your request is completed. See results page!";
+        }
+        else
+        {
+            MatlabRunner m = (MatlabRunner)Application["MatlabRunner"];
+            m.EnqueueRequest(req);
+            debugString("Posted to queue.");
+            lblRef.ForeColor = System.Drawing.Color.Blue;
+            lblRef.Text = "Your request was posted to the queue. Try the results page later.";
+        }
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -60,9 +70,13 @@ public partial class _Analyze: System.Web.UI.Page
         int z1 = Convert.ToInt32(txtZ1.Text);
         int z2 = Convert.ToInt32(txtZ2.Text);
         double threshold = Convert.ToDouble(txtThreshold.Text);
-        
-        string refStr = execute(imageName, x1, x2, y1, y2, z1, z2, threshold);
-        lblRef.Text = Convert.ToString(refStr);
+
+        execute(imageName, x1, x2, y1, y2, z1, z2, threshold);
         pnlRefArea.Visible = true;
+    }
+
+    protected void btnGoToResults_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Results.aspx?id=" + refStr.Value);
     }
 }

@@ -23,6 +23,11 @@ public class FmriCommon
         return Server.MapPath(@"Results") + "\\";
     }
 
+    public static bool isOutImageExists(string md5, HttpServerUtility Server)
+    {
+        return System.IO.File.Exists(FmriCommon.getOutImageDir(Server) + md5 + ".png");
+    }
+
     public static string md5(string input)
     {
         System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
