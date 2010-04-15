@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeFile="Analyze.aspx.cs" Inherits="_Analyze" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeFile="Analyze.aspx.cs" Inherits="Analyze" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -84,11 +84,11 @@
         
         <asp:Panel ID="pnlRefArea" runat="server" Visible="false">
             <br /><hr /><br />
-            Reference:
+            <asp:HiddenField ID="refStr" runat="server" />
             <span style="font-weight:bold">
                 <asp:Label ID="lblRef" runat="server" Text="" ForeColor="Blue" />
             </span><br />
-            Your request is being processed. You can view its result, by using the reference above.
+            <asp:Button ID="btnGoToResults" runat="server" Text="Go to Results page" OnClick="btnGoToResults_Click" />
         </asp:Panel>
         <br />
         <a href="Default.aspx">Back to home...</a>
