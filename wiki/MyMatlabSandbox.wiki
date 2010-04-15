@@ -1,3 +1,5 @@
+#summary Quick tutorial to relevant Matlab commands
+
 =Save matrix to image file (Black & White)=
 Say `mtx` is a 2-D matrix of voxel correlations, and we want to save it into `'file.png'`:
   * `boolean_mtx = round(abs(mtx));`
