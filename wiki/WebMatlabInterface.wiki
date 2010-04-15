@@ -1,3 +1,5 @@
+#Defines the application interface between the web-app and the matlab code
+
 There are 3 main cases:
   # Requested parameters are new. Matlab should calculate the correlation matrix, store it in the matrices cache, create an image, and store it in the images cache.
   # Requested parameters (except threshold) where already calculated. Matlab should take the stored correlation matrix, create an image, and store it in the images cache.
