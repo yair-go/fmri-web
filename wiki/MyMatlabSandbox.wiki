@@ -32,7 +32,7 @@ ans =
 }}}
 
 
-The *time* axis has 132 frames, so the first dimention is the time.
+The *time* axis has 132 frames, so the first index specifies the time frame.
 
 To get a sub-cube:
 {{{
