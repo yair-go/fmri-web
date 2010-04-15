@@ -14,11 +14,13 @@
             
             Reference Number: <asp:TextBox ID="txtID" runat="server" /><br />
             <asp:Button ID="btnRefresh" runat="server" Text="Refresh!" OnClick="btnRefresh_Click" />
-        </asp:Panel><br />
+            <br />
+        </asp:Panel>
         <asp:Panel ID="pnlImage" runat="server">
             Your image is:<br />
             <asp:Image ID="imgResult" runat="server" />
-        </asp:Panel><br />
+            <br />
+        </asp:Panel>
         <a href="Default.aspx">Back to home...</a>
     </div>
     </form>
