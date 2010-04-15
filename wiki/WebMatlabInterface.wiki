@@ -1,4 +1,4 @@
-#Defines the application interface between the web-app and the matlab code
+#summary Defines the application interface between the web-app and the matlab code
 
 There are 3 main cases:
   # Requested parameters are new. Matlab should calculate the correlation matrix, store it in the matrices cache, create an image, and store it in the images cache.
