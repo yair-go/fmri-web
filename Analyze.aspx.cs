@@ -44,7 +44,7 @@ public partial class _Analyze: System.Web.UI.Page
         debugString("AreaStringWithThreshold: " + req.AreaStringWithThreshold + " (" + req.AreaStringWithThresholdMD5 + ")");
 
         MatlabRunner m = (MatlabRunner) Application["MatlabRunner"];
-        m.PostRequest(req, Server);
+        m.EnqueueRequest(req);
         debugString("Posted.");
 
         return req.AreaStringWithThresholdMD5;
