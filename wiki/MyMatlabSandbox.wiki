@@ -2,16 +2,22 @@
 
 =Save matrix to image file (Black & White)=
 Say `mtx` is a 2-D matrix of voxel correlations, and we want to save it into `'file.png'`:
-  * `boolean_mtx = round(abs(mtx));`
-  * `imwrite(boolean_mtx, 'file.png', 'BitDepth', 1);`
+{{{
+boolean_mtx = round(abs(mtx));
+imwrite(boolean_mtx, 'file.png', 'BitDepth', 1);
+}}}
 
 
 =Save/Load Matrix to/from a 'mat' file=
 Say `mtx` is a 2-D matrix of voxel correlations, and we want to save it into `'myfile.mat'`:
-  * `save('myfile.mat', 'mtx');`
+{{{
+save('myfile.mat', 'mtx');
+}}}
 
 Say `'myfile.mat'` is a saved matlab file, that contains `mtx` variable, and we want to load it:
-  * `load('myfile.mat');`
+{{{
+load('myfile.mat');
+}}}
 (now, `mtx` contains the matrix itself).
 
 =General matrices operations=
