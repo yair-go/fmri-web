@@ -19,7 +19,7 @@ public partial class Results : System.Web.UI.Page
             }
             else
             {
-                lblMsg.Text = "File does not exists yet. Please try again later.<br /><br />";
+                lblMsg.Text = "File does not exist yet. Please try again later.<br />";
                 lblMsg.ForeColor = System.Drawing.Color.DarkRed;
                 pnlImage.Visible = false;
                 pnlMessage.Visible = true;

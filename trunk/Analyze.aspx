@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>FMRI :: Analyze</title>
+    <link href="fmri.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="AnalyzeForm" runat="server">
@@ -19,7 +20,8 @@
                 <td>
                     <asp:TextBox ID="txtX1" runat="server" Columns="4" /> to 
                     <asp:TextBox ID="txtX2" runat="server" Columns="4" />
-                    
+                </td>
+                <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="<br />X1 is required!" ControlToValidate="txtX1" Display="Dynamic" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="<br />X2 is required!" ControlToValidate="txtX2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />X1 should be a number!" ControlToValidate="txtX1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
@@ -35,7 +37,8 @@
                 <td>
                     <asp:TextBox ID="txtY1" runat="server" Columns="4" /> to 
                     <asp:TextBox ID="txtY2" runat="server" Columns="4" />
-
+                </td>
+                <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="<br />Y1 is required!" ControlToValidate="txtY1" Display="Dynamic" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="<br />Y2 is required!" ControlToValidate="txtY2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br />Y1 should be a number!" ControlToValidate="txtY1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
@@ -50,7 +53,8 @@
                 <td>
                     <asp:TextBox ID="txtZ1" runat="server" Columns="4" /> to 
                     <asp:TextBox ID="txtZ2" runat="server" Columns="4" />
-
+                </td>
+                <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="<br />Z1 is required!" ControlToValidate="txtZ1" Display="Dynamic" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="<br />Z2 is required!" ControlToValidate="txtZ2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br />Z1 should be a number!" ControlToValidate="txtZ1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
@@ -64,7 +68,8 @@
                 <td>Threshold:</td>
                 <td>
                     <asp:TextBox ID="txtThreshold" runat="server" Columns="4" />
-
+                </td>
+                <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="<br />Threshold is required!" ControlToValidate="txtThreshold" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Threshold should be Double!" ControlToValidate="txtThreshold" Type="Double" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:RangeValidator ID="RangeValidator7" runat="server" ErrorMessage="<br />Threshold range is: [0,1]" ControlToValidate="txtThreshold" MinimumValue="0" MaximumValue="1" Type="Double" Display="Dynamic">
@@ -72,10 +77,9 @@
                 </td>
             </tr>
         </table>
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
-        <asp:Button ID="btnSubmit" runat="server" onclick="btnSubmit_Click" Text="Analyze!" />
+        <asp:LinkButton ID="btnSubmit" runat="server" onclick="btnSubmit_Click" Text="Analyze!" class="large green awesome" />
         
-        <asp:Panel ID="pnlDebugArea" runat="server">
+        <asp:Panel ID="pnlDebugArea" runat="server" Visible="false">
             <br /><hr /><br />
             Debug messages: <br />
             <asp:Label ID="lblDebugReport" runat="server" BorderStyle="Solid" 
@@ -88,11 +92,17 @@
             <span style="font-weight:bold">
                 <asp:Label ID="lblRef" runat="server" Text="" ForeColor="Blue" />
             </span><br />
-            <asp:Button ID="btnGoToResults" runat="server" Text="Go to Results page" OnClick="btnGoToResults_Click" />
+            <asp:LinkButton ID="btnGoToResults" runat="server" onclick="btnGoToResults_Click" Text="View Results" class="large yellow awesome" />
         </asp:Panel>
         <br />
-        <a href="Default.aspx">Back to home...</a>
     </div>
     </form>
+    <div class="footer">
+        <a href="Default.aspx" class="footerlink">Home</a> |
+        <a href="Upload.aspx" class="footerlink">Upload</a> |
+        <b>Analyze</b> |
+        <a href="Results.aspx" class="footerlink">View Results</a> |
+        <a href="Control.aspx" class="footerlink">Control</a>
+    </div>
 </body>
 </html>
