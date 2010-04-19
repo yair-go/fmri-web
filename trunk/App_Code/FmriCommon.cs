@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class FmriCommon
 {
-    private static System.IO.StreamWriter fs = new System.IO.StreamWriter("logfile.log", true);
+    private static System.IO.StreamWriter fs;
 
     public static string getSrcImageDir(HttpServerUtility Server)
     {
@@ -64,5 +64,10 @@ public class FmriCommon
     {
         object[] o = { o1, o2, o3 };
         LogToFile(String.Format(str, o));
+    }
+
+    public static void createLogStream(string path)
+    {
+        fs = new System.IO.StreamWriter(path, true);
     }
 }

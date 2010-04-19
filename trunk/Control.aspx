@@ -10,7 +10,23 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <b>Current Queue:</b>
+        <asp:Panel ID="pnlCurrent" runat="server">
+            <b>Currently Analyzed:</b>
+            <asp:Table ID="tblCurrent" runat="server" BorderStyle="Solid" BorderWidth="1" CellPadding="5" GridLines="Both">
+                <asp:TableHeaderRow>
+                    <asp:TableHeaderCell>Filename</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>X</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>Y</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>Z</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
+                    <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
+                </asp:TableHeaderRow>
+            </asp:Table>
+            <br />        
+        </asp:Panel>
+
+        <b>Queue:</b>
         <asp:Table ID="tblQueue" runat="server" BorderStyle="Solid" BorderWidth="1" CellPadding="5" GridLines="Both">
             <asp:TableHeaderRow>
                 <asp:TableHeaderCell>Filename</asp:TableHeaderCell>

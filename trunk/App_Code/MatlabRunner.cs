@@ -17,6 +17,7 @@ public class MatlabRunner
     private WaitHandle[] m_waitables;
     private Thread m_thread;
     private HttpServerUtility m_server;
+    private FmriRequest m_currentRequest;
 
 	public MatlabRunner(HttpServerUtility Server)
 	{
@@ -80,6 +81,7 @@ public class MatlabRunner
     public void handleRequest(FmriRequest req)
     {
         FmriCommon.LogToFile("MatlabRunner - handling request: {0}", req.AreaStringWithThreshold);
+        m_currentRequest = req;
         
         try
         {
@@ -111,7 +113,7 @@ public class MatlabRunner
             req.Result = m_matlab.LastResult;
             
             FmriCommon.LogToFile("MatlabRunner - matlab done: {0}", req.Result);
-           
+            m_currentRequest = null;
         }
         catch (Exception e)
         {
@@ -173,5 +175,10 @@ public class MatlabRunner
         {
             return m_queue.Dequeue();
         }
+    }
+
+    public FmriRequest CurrentRequest
+    {
+        get { return m_currentRequest; }
     }
 }
