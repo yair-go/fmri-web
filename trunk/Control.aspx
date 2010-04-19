@@ -18,6 +18,7 @@
                 <asp:TableHeaderCell>Y</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Z</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
         <br />
@@ -29,7 +30,10 @@
                 <asp:TableHeaderCell>Y</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Z</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Link</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
         

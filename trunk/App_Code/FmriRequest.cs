@@ -11,6 +11,9 @@ public class FmriRequest
     private string m_imageName;
     private int m_x1, m_x2, m_y1, m_y2, m_z1, m_z2;
     private double m_threshold;
+    private DateTime m_timeSubmitted, m_timeExecuted;
+    private string m_result;
+
 
     public FmriRequest()
     {
@@ -27,6 +30,7 @@ public class FmriRequest
         Z1 = z1;
         Z2 = z2;
         Threshold = threshold;
+        m_timeSubmitted = DateTime.Now;
     }
 
     public string ImageName
@@ -95,6 +99,27 @@ public class FmriRequest
     public string AreaStringWithThresholdMD5
     {
         get { return FmriCommon.md5(AreaStringWithThreshold); }
+    }
+
+    public DateTime TimeSubmitted
+    {
+        get { return m_timeSubmitted; }
+    }
+
+    public void executedNow()
+    {
+        m_timeExecuted = DateTime.Now;
+    }
+
+    public DateTime TimeExecuted
+    {
+        get { return m_timeExecuted; }
+    }
+
+    public string Result
+    {
+        get { return m_result; }
+        set { m_result = value; }
     }
 
 

@@ -8,6 +8,8 @@ using System.Web;
 /// </summary>
 public class FmriCommon
 {
+    private static System.IO.StreamWriter fs = new System.IO.StreamWriter("logfile.log", true);
+
     public static string getSrcImageDir(HttpServerUtility Server)
     {
         return Server.MapPath(@"App_Data\Images") + "\\";
@@ -39,5 +41,28 @@ public class FmriCommon
             s.Append(b.ToString("x2").ToLower());
         }
         return s.ToString();
+    }
+
+    public static void LogToFile(string str)
+    {
+        string s = String.Format("{0}\t{1}", DateTime.Now, str);
+        fs.WriteLine(s);
+        fs.Flush();
+    }
+
+    public static void LogToFile(string str, object o1)
+    {
+        LogToFile(String.Format(str, o1));
+    }
+
+    public static void LogToFile(string str, object o1, object o2)
+    {
+        LogToFile(String.Format(str, o1, o2));
+    }
+
+    public static void LogToFile(string str, object o1, object o2, object o3)
+    {
+        object[] o = { o1, o2, o3 };
+        LogToFile(String.Format(str, o));
     }
 }
