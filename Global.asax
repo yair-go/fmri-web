@@ -4,13 +4,15 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
+        FmriCommon.LogToFile("Application starts...");
         Application["MatlabRunner"] = new MatlabRunner(Server);
+        FmriCommon.LogToFile("MatlabRunner created.");
     }
     
     void Application_End(object sender, EventArgs e) 
     {
         //  Code that runs on application shutdown
-
+        FmriCommon.LogToFile("Application ends.");
     }
         
     void Application_Error(object sender, EventArgs e) 

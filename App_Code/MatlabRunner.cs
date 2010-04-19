@@ -21,7 +21,10 @@ public class MatlabRunner
 	public MatlabRunner(HttpServerUtility Server)
 	{
         m_server = Server;
+        
         m_matlab = new EngMATLib.EngMATAccess();
+        m_matlab.Evaluate("cd('" + m_server.MapPath("App_Data") + "');");
+            
         m_queue = new Queue<FmriRequest>();
         m_doneList = new List<FmriRequest>();
 
@@ -35,6 +38,8 @@ public class MatlabRunner
 
     ~MatlabRunner()
     {
+        FmriCommon.LogToFile("MatlabRunner - dtor started.");
+        
         if (null != m_matlab)
         {
             m_matlab.Close();
@@ -42,41 +47,85 @@ public class MatlabRunner
 
         m_stopEvent.Set();
         m_thread.Join(30000);
+        FmriCommon.LogToFile("MatlabRunner - dtor ends.");
+        
     }
 
     private void WorkLoop()
     {
-        do
+        FmriCommon.LogToFile("MatlabRunner - worker thread started.");
+
+        try
         {
-            int index = WaitHandle.WaitAny(m_waitables);
-            if( m_waitables[index] == m_stopEvent )
+            do
             {
-                break;
-            }
-            
-            while(HasRequests() && !m_stopEvent.WaitOne(0))
-            {
-                Thread.Sleep(20000);
-                handleRequest(DequeueRequest());
-            }
-        } while(true);
+                int index = WaitHandle.WaitAny(m_waitables);
+                if (m_waitables[index] == m_stopEvent)
+                {
+                    break;
+                }
+
+                while (HasRequests() && !m_stopEvent.WaitOne(0))
+                {
+                    handleRequest(DequeueRequest());
+                }
+            } while (true);
+        }
+        catch (ThreadAbortException e)
+        {
+            FmriCommon.LogToFile("MatlabRunner - worker thread aborted!");
+        }
     }
 
     public void handleRequest(FmriRequest req)
     {
-        m_matlab.Evaluate("boolean_mtx = [1 1 0 1 0; 1 0 0 0 0; 0 1 0 1 1; 0 1 1 1 0; 1 0 1 0 0];");
-        string corr_matrix_out_filename = String.Format("corr_matrix_out_filename = '{0}{1}.mat';", FmriCommon.getMatrixDir(m_server), req.AreaStringMD5);
-        m_matlab.Evaluate(corr_matrix_out_filename);
-        m_matlab.Evaluate("save(corr_matrix_out_filename, 'boolean_mtx');");
+        FmriCommon.LogToFile("MatlabRunner - handling request: {0}", req.AreaStringWithThreshold);
+        
+        try
+        {
+            string mtx_filename = FmriCommon.getMatrixDir(m_server) + req.AreaStringMD5 + ".mat";
 
-        string corr_image_out_filename = String.Format("corr_image_out_filename = '{0}{1}.png';", FmriCommon.getOutImageDir(m_server), req.AreaStringWithThresholdMD5);
-        m_matlab.Evaluate(corr_image_out_filename);
-        m_matlab.Evaluate("imwrite(boolean_mtx, corr_image_out_filename, 'BitDepth', 1);");
+            if (!System.IO.File.Exists(mtx_filename))
+            {
+                m_matlab.Evaluate("should_calc_corr_matrix = 1;");
+                m_matlab.Evaluate("src_image_filename = '" + FmriCommon.getSrcImageDir(m_server) + req.ImageName + "';");
+                object[] range = { req.X1, req.X2, req.Y1, req.Y2, req.Z1, req.Z2 };
+                m_matlab.Evaluate(String.Format("x1={0};x2={1};y1={2};y2={3};z1={4};z2={5};", range));
+                m_matlab.Evaluate("corr_matrix_out_filename = '" + mtx_filename + "';");
+            }
+            else
+            {
+                m_matlab.Evaluate("should_calc_corr_matrix = 0;");
+                m_matlab.Evaluate("corr_matrix_in_filename = '" + mtx_filename + "';");
+            }
 
+            m_matlab.Evaluate("threshold = " + Convert.ToString(req.Threshold) + ";");
+
+            string out_image_filename = FmriCommon.getOutImageDir(m_server) + req.AreaStringWithThresholdMD5 + ".png";
+            m_matlab.Evaluate("corr_image_out_filename = '" + out_image_filename + "';");
+
+
+            // Finished initializing variables. Run the MATLAB script now!
+            req.executedNow();
+            m_matlab.Evaluate("analyze;");
+            req.Result = m_matlab.LastResult;
+            
+            FmriCommon.LogToFile("MatlabRunner - matlab done: {0}", req.Result);
+           
+        }
+        catch (Exception e)
+        {
+            req.Result = e.Message;
+            FmriCommon.LogToFile("MatlabRunner - exception caught: {0} [{1}]", e.Message,  e.StackTrace);
+        }
+
+        
         lock (m_doneList)
         {
             m_doneList.Add(req);
         }
+
+        FmriCommon.LogToFile("MatlabRunner - request finished.");
     }
 
     public List<FmriRequest> GetDoneList()

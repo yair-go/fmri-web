@@ -39,6 +39,10 @@ public partial class Control : System.Web.UI.Page
             c.Text = Convert.ToString(req.Threshold);
             r.Cells.Add(c);
 
+            c = new TableCell();
+            c.Text = Convert.ToString(req.TimeSubmitted);
+            r.Cells.Add(c);
+
             tblQueue.Rows.Add(r);
         }
 
@@ -69,8 +73,21 @@ public partial class Control : System.Web.UI.Page
             r.Cells.Add(c);
 
             c = new TableCell();
+            c.Text = Convert.ToString(req.TimeSubmitted);
+            r.Cells.Add(c);
+
+            c = new TableCell();
+            c.Text = Convert.ToString(req.TimeExecuted);
+            r.Cells.Add(c);
+
+            c = new TableCell();
             c.Text = "<a href=\"Results.aspx?id=" + req.AreaStringWithThresholdMD5 + "\">Results...</a>";
             r.Cells.Add(c);
+
+            c = new TableCell();
+            c.Text = req.Result;
+            r.Cells.Add(c);
+            
 
             tblDone.Rows.Add(r);
         }
