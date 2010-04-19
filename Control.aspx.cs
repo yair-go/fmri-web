@@ -7,6 +7,35 @@ using System.Web.UI.WebControls;
 
 public partial class Control : System.Web.UI.Page
 {
+    private void AddCells(TableCellCollection cells, FmriRequest req)
+    {
+        TableCell c;
+
+        c = new TableCell();
+        c.Text = req.ImageName;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = "" + req.X1 + "-" + req.X2;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = "" + req.Y1 + "-" + req.Y2;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = "" + req.Z1 + "-" + req.Z2;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = Convert.ToString(req.Threshold);
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = Convert.ToString(req.TimeSubmitted);
+        cells.Add(c);
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         MatlabRunner m = (MatlabRunner)Application["MatlabRunner"];
@@ -17,31 +46,8 @@ public partial class Control : System.Web.UI.Page
         foreach (FmriRequest req in reqList)
         {
             TableRow r = new TableRow();
-            TableCell c;
-
-            c = new TableCell();
-            c.Text = req.ImageName;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.X1 + "-" + req.X2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.Y1 + "-" + req.Y2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.Z1 + "-" + req.Z2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = Convert.ToString(req.Threshold);
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = Convert.ToString(req.TimeSubmitted);
-            r.Cells.Add(c);
+            
+            AddCells(r.Cells, req);
 
             tblQueue.Rows.Add(r);
         }
@@ -52,29 +58,7 @@ public partial class Control : System.Web.UI.Page
             TableRow r = new TableRow();
             TableCell c;
 
-            c = new TableCell();
-            c.Text = req.ImageName;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.X1 + "-" + req.X2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.Y1 + "-" + req.Y2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = "" + req.Z1 + "-" + req.Z2;
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = Convert.ToString(req.Threshold);
-            r.Cells.Add(c);
-
-            c = new TableCell();
-            c.Text = Convert.ToString(req.TimeSubmitted);
-            r.Cells.Add(c);
+            AddCells(r.Cells, req);
 
             c = new TableCell();
             c.Text = Convert.ToString(req.TimeExecuted);
@@ -91,5 +75,25 @@ public partial class Control : System.Web.UI.Page
 
             tblDone.Rows.Add(r);
         }
+
+        FmriRequest currReq = ((MatlabRunner)Application["MatlabRunner"]).CurrentRequest;
+        if (currReq != null)
+        {
+           TableRow r = new TableRow();
+           TableCell c;
+
+           AddCells(r.Cells, currReq);
+
+           c = new TableCell();
+           c.Text = Convert.ToString(currReq.TimeExecuted);
+           r.Cells.Add(c);
+
+           tblCurrent.Rows.Add(r);
+        }
+        else
+        {
+           pnlCurrent.Visible = false;
+        }
+
     }
 }
