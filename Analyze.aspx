@@ -26,8 +26,8 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="<br />X2 is required!" ControlToValidate="txtX2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />X1 should be a number!" ControlToValidate="txtX1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />X2 should be a number!" ControlToValidate="txtX2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="<br />X1 range is: [0,100]" ControlToValidate="txtX1" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="<br />X2 range is: [0,100]" ControlToValidate="txtX2" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="<br />X1 range is: [1,95]" ControlToValidate="txtX1" MinimumValue="1" MaximumValue="95" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="<br />X2 range is: [1,95]" ControlToValidate="txtX2" MinimumValue="1" MaximumValue="950" Type="Integer" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />X2 should be greater than X1!" ControlToValidate="txtX2" ControlToCompare="txtX1" Type="Integer" Operator="GreaterThan" Display="Dynamic" />
 
                 </td>
@@ -43,8 +43,8 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="<br />Y2 is required!" ControlToValidate="txtY2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br />Y1 should be a number!" ControlToValidate="txtY1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />Y2 should be a number!" ControlToValidate="txtY2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="<br />Y1 range is: [0,100]" ControlToValidate="txtY1" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="<br />Y2 range is: [0,100]" ControlToValidate="txtY2" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator3" runat="server" ErrorMessage="<br />Y1 range is: [1,57]" ControlToValidate="txtY1" MinimumValue="1" MaximumValue="57" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="<br />Y2 range is: [1,57]" ControlToValidate="txtY2" MinimumValue="1" MaximumValue="57" Type="Integer" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Y2 should be greater than Y1!" ControlToValidate="txtY2" ControlToCompare="txtY1" Type="Integer" Operator="GreaterThan" Display="Dynamic" />
                 </td>
             </tr>
@@ -59,8 +59,8 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="<br />Z2 is required!" ControlToValidate="txtZ2" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br />Z1 should be a number!" ControlToValidate="txtZ1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br />Z2 should be a number!" ControlToValidate="txtZ2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator5" runat="server" ErrorMessage="<br />Z1 range is: [0,100]" ControlToValidate="txtZ1" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator6" runat="server" ErrorMessage="<br />Z2 range is: [0,100]" ControlToValidate="txtZ2" MinimumValue="0" MaximumValue="100" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator5" runat="server" ErrorMessage="<br />Z1 range is: [1,79]" ControlToValidate="txtZ1" MinimumValue="1" MaximumValue="79" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator6" runat="server" ErrorMessage="<br />Z2 range is: [1,79]" ControlToValidate="txtZ2" MinimumValue="1" MaximumValue="79" Type="Integer" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Z2 should be greater than Z1!" ControlToValidate="txtZ2" ControlToCompare="txtZ1" Type="Integer" Operator="GreaterThan" Display="Dynamic" />
                 </td>
             </tr>
