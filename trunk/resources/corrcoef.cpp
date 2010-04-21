@@ -1,5 +1,5 @@
 // corrcoef.cpp : Defines the entry point for the console application.
-//
+// remark
 //#include <atltime.h>
 //#include <iostream>
 //#include <cstdlib>
