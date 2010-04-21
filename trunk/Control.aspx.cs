@@ -38,7 +38,7 @@ public partial class Control : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        MatlabRunner m = (MatlabRunner)Application["MatlabRunner"];
+        MatlabRunner m = FmriCommon.getMatlabRunner(Application, Server);
         
         List<FmriRequest> reqList;
 
@@ -76,7 +76,7 @@ public partial class Control : System.Web.UI.Page
             tblDone.Rows.Add(r);
         }
 
-        FmriRequest currReq = ((MatlabRunner)Application["MatlabRunner"]).CurrentRequest;
+        FmriRequest currReq = m.CurrentRequest;
         if (currReq != null)
         {
            TableRow r = new TableRow();

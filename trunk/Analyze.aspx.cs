@@ -52,7 +52,7 @@ public partial class Analyze: System.Web.UI.Page
         }
         else
         {
-            MatlabRunner m = (MatlabRunner)Application["MatlabRunner"];
+            MatlabRunner m = FmriCommon.getMatlabRunner(Application, Server);
             m.EnqueueRequest(req);
             debugString("Posted to queue.");
             lblRef.ForeColor = System.Drawing.Color.Blue;
