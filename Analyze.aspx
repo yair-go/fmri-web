@@ -92,7 +92,9 @@
             <span style="font-weight:bold">
                 <asp:Label ID="lblRef" runat="server" Text="" ForeColor="Blue" />
             </span><br />
+            <a href="Control.aspx" class="large magenta awesome">View Status</a><br /><br />
             <asp:LinkButton ID="btnGoToResults" runat="server" onclick="btnGoToResults_Click" Text="View Results" class="large yellow awesome" />
+            
         </asp:Panel>
         <br />
     </div>

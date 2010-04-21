@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class FmriCommon
 {
-    private static System.IO.StreamWriter fs;
+    private static string path = "fmri.log";
 
     public static string getSrcImageDir(HttpServerUtility Server)
     {
@@ -45,9 +45,18 @@ public class FmriCommon
 
     public static void LogToFile(string str)
     {
-        string s = String.Format("{0}\t{1}", DateTime.Now, str);
-        fs.WriteLine(s);
-        fs.Flush();
+        try
+        {
+            System.IO.StreamWriter fs = new System.IO.StreamWriter(path, true);
+            string s = String.Format("{0}\t{1}", DateTime.Now, str);
+            fs.WriteLine(s);
+            fs.Flush();
+            fs.Close();
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
     }
 
     public static void LogToFile(string str, object o1)
@@ -66,9 +75,9 @@ public class FmriCommon
         LogToFile(String.Format(str, o));
     }
 
-    public static void createLogStream(string path)
+    public static void setLogPath(string logpath)
     {
-        fs = new System.IO.StreamWriter(path, true);
+        path = logpath;
     }
 
     public static MatlabRunner getMatlabRunner(HttpApplicationState Application, HttpServerUtility Server)

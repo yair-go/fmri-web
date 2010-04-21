@@ -4,7 +4,7 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
-        FmriCommon.createLogStream(Server.MapPath("App_Data\\fmri.log"));
+        FmriCommon.setLogPath(Server.MapPath("App_Data\\fmri.log"));
         FmriCommon.LogToFile("Application starts...");
         FmriCommon.getMatlabRunner(Application, Server);
         FmriCommon.LogToFile("MatlabRunner created.");
