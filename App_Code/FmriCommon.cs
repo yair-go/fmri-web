@@ -70,4 +70,18 @@ public class FmriCommon
     {
         fs = new System.IO.StreamWriter(path, true);
     }
+
+    public static MatlabRunner getMatlabRunner(HttpApplicationState Application, HttpServerUtility Server)
+    {
+        MatlabRunner m = null;
+        m = (MatlabRunner)Application.Get("MatlabRunner");
+
+        if( null == m )
+        {
+            m = new MatlabRunner(Server);
+            Application.Set("MatlabRunner", m);
+        }
+
+        return m;
+    }
 }
