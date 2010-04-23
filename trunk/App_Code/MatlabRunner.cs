@@ -87,6 +87,14 @@ public class MatlabRunner
         }
     }
 
+    public void RunMatlabAndLog(string cmd)
+    {
+        m_matlab.Evaluate(cmd);
+        string res = m_matlab.LastResult;
+        if (res.Trim() != "")
+            FmriCommon.LogToFile("MATLAB: " + res.Trim());
+    }
+
     public void handleRequest(FmriRequest req)
     {
         FmriCommon.LogToFile("MatlabRunner - handling request: {0}", req.AreaStringWithThreshold);
@@ -100,43 +108,39 @@ public class MatlabRunner
 
             if (!System.IO.File.Exists(mtx_filename))
             {
-                m_matlab.Evaluate("should_calc_corr_matrix = 1;");
-                m_matlab.Evaluate("src_image_filename = '" + FmriCommon.getSrcImageDir(m_server) + req.ImageName + "';");
+                RunMatlabAndLog("should_calc_corr_matrix = 1;");
+                RunMatlabAndLog("src_image_filename = '" + FmriCommon.getSrcImageDir(m_server) + req.ImageName + "';");
                 object[] range = { req.X1, req.X2, req.Y1, req.Y2, req.Z1, req.Z2 };
-                m_matlab.Evaluate(String.Format("x1={0};x2={1};y1={2};y2={3};z1={4};z2={5};", range));
-                m_matlab.Evaluate("corr_matrix_out_filename = '" + mtx_filename + "';");
+                RunMatlabAndLog(String.Format("x1={0};x2={1};y1={2};y2={3};z1={4};z2={5};", range));
+                RunMatlabAndLog("corr_matrix_out_filename = '" + mtx_filename + "';");
             }
             else
             {
-                m_matlab.Evaluate("should_calc_corr_matrix = 0;");
-                m_matlab.Evaluate("corr_matrix_in_filename = '" + mtx_filename + "';");
+                RunMatlabAndLog("should_calc_corr_matrix = 0;");
+                RunMatlabAndLog("corr_matrix_in_filename = '" + mtx_filename + "';");
             }
 
             if (!System.IO.File.Exists(xls_filename))
             {
-                m_matlab.Evaluate("should_write_xls = 1;");
-                FmriCommon.LogToFile("setting should_write_xls = 1");
-                m_matlab.Evaluate("xls_out_filename = '" + xls_filename + "';");
-                m_matlab.Evaluate("zip_out_filename = '" + zip_filename + "';");
+                RunMatlabAndLog("should_write_xls = 1;");
+                RunMatlabAndLog("xls_out_filename = '" + xls_filename + "';");
+                RunMatlabAndLog("zip_out_filename = '" + zip_filename + "';");
             }
             else
             {
-                m_matlab.Evaluate("should_write_xls = 0;");
-                FmriCommon.LogToFile("setting should_write_xls = 0");
+                RunMatlabAndLog("should_write_xls = 0;");
             }
 
-            m_matlab.Evaluate("threshold = " + Convert.ToString(req.Threshold) + ";");
+            RunMatlabAndLog("threshold = " + Convert.ToString(req.Threshold) + ";");
 
             string out_image_filename = FmriCommon.getOutImageDir(m_server) + req.AreaStringWithThresholdMD5 + ".png";
-            m_matlab.Evaluate("corr_image_out_filename = '" + out_image_filename + "';");
+            RunMatlabAndLog("corr_image_out_filename = '" + out_image_filename + "';");
 
 
             // Finished initializing variables. Run the MATLAB script now!
             req.executedNow();
-            m_matlab.Evaluate("analyze;");
+            RunMatlabAndLog("analyze;");
             req.Result = m_matlab.LastResult;
-
-            FmriCommon.LogToFile("MatlabRunner - matlab done: {0}", req.Result);
         }
         catch (Exception e)
         {
