@@ -48,9 +48,9 @@
                 <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Link</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Excel</asp:TableHeaderCell>
-                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
         <br />
@@ -64,9 +64,9 @@
                 <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Link</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Excel</asp:TableHeaderCell>
-                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
         
