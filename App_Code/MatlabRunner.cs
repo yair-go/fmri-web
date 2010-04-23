@@ -115,12 +115,14 @@ public class MatlabRunner
             if (!System.IO.File.Exists(xls_filename))
             {
                 m_matlab.Evaluate("should_write_xls = 1;");
+                FmriCommon.LogToFile("setting should_write_xls = 1");
                 m_matlab.Evaluate("xls_out_filename = '" + xls_filename + "';");
                 m_matlab.Evaluate("zip_out_filename = '" + zip_filename + "';");
             }
             else
             {
                 m_matlab.Evaluate("should_write_xls = 0;");
+                FmriCommon.LogToFile("setting should_write_xls = 0");
             }
 
             m_matlab.Evaluate("threshold = " + Convert.ToString(req.Threshold) + ";");
