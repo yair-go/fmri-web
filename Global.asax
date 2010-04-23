@@ -8,6 +8,8 @@
         FmriCommon.LogToFile("Application starts...");
         FmriCommon.getMatlabRunner(Application, Server);
         FmriCommon.LogToFile("MatlabRunner created.");
+        
+        Application["ID"] = new Random().Next(10000);
     }
     
     void Application_End(object sender, EventArgs e) 

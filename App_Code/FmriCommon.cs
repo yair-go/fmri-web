@@ -55,7 +55,7 @@ public class FmriCommon
         }
         catch (Exception e)
         {
-            throw;
+            //throw;
         }
     }
 
