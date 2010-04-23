@@ -63,6 +63,7 @@
         <a href="Analyze.aspx" class="footerlink">Analyze</a> |
         <a href="Results.aspx" class="footerlink">View Results</a> |
         <b>Control</b>
+        <br /><br />Application Instance: <% =Application["ID"].ToString() %> | Hosting Process ID: <% =System.Diagnostics.Process.GetCurrentProcess().Id %>
     </div>
 </body>
 </html>
