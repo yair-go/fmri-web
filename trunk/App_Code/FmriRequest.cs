@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-/// <summary>
-/// Summary description for FmriRequest
-/// </summary>
+[Serializable]
 public class FmriRequest
 {
     private string m_imageName;
@@ -13,12 +11,6 @@ public class FmriRequest
     private double m_threshold;
     private DateTime m_timeSubmitted, m_timeExecuted;
     private string m_result;
-
-
-    public FmriRequest()
-    {
-        //
-    }
 
     public FmriRequest(string imageName, int x1, int x2, int y1, int y2, int z1, int z2, double threshold)
     {

@@ -38,8 +38,24 @@
             </asp:TableHeaderRow>
         </asp:Table>
         <br />
-        <b>Finished:</b>
+        <b>Finished (since last application restart):</b>
         <asp:Table ID="tblDone" runat="server" BorderStyle="Solid" BorderWidth="1" CellPadding="5" GridLines="Both">
+            <asp:TableHeaderRow>
+                <asp:TableHeaderCell>Filename</asp:TableHeaderCell>
+                <asp:TableHeaderCell>X</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Y</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Z</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Link</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Excel</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Result</asp:TableHeaderCell>
+            </asp:TableHeaderRow>
+        </asp:Table>
+        <br />
+        <b>History:</b>
+        <asp:Table ID="tblHistory" runat="server" BorderStyle="Solid" BorderWidth="1" CellPadding="5" GridLines="Both">
             <asp:TableHeaderRow>
                 <asp:TableHeaderCell>Filename</asp:TableHeaderCell>
                 <asp:TableHeaderCell>X</asp:TableHeaderCell>

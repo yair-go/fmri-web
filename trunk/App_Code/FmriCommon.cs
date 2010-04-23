@@ -92,7 +92,7 @@ public class FmriCommon
 
         if( null == m )
         {
-            m = new MatlabRunner(Server);
+            m = new MatlabRunner(Server, Application);
             Application.Set("MatlabRunner", m);
         }
 

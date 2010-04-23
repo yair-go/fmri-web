@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 /// <summary>
 /// Summary description for MatlabRunner
@@ -17,11 +20,13 @@ public class MatlabRunner
     private WaitHandle[] m_waitables;
     private Thread m_thread;
     private HttpServerUtility m_server;
+    private HttpApplicationState m_app;
     private FmriRequest m_currentRequest;
 
-	public MatlabRunner(HttpServerUtility Server)
+	public MatlabRunner(HttpServerUtility Server, HttpApplicationState Application)
 	{
         m_server = Server;
+        m_app = Application;
         
         m_matlab = new EngMATLib.EngMATAccess();
         m_matlab.Evaluate("cd('" + m_server.MapPath("App_Data") + "');");
@@ -33,12 +38,16 @@ public class MatlabRunner
         m_stopEvent = new ManualResetEvent(false);
         m_waitables = new WaitHandle[] { m_newItemEvent, m_stopEvent };
 
+        m_app["ReqHist"] = readFromHistory();
+
         m_thread = new Thread(WorkLoop);
         m_thread.Start();
 	}
 
     ~MatlabRunner()
     {
+        writeToHistory();
+
         FmriCommon.LogToFile("MatlabRunner - dtor started.");
         
         if (null != m_matlab)
@@ -196,5 +205,55 @@ public class MatlabRunner
     public FmriRequest CurrentRequest
     {
         get { return m_currentRequest; }
+    }
+
+    public List<FmriRequest> readFromHistory()
+    {
+        List<FmriRequest> ret = new List<FmriRequest>();
+
+        try
+        {
+            FileStream fstream = new FileStream(m_server.MapPath("App_Data\\history.bin"), FileMode.Open);
+            IFormatter formatter = new BinaryFormatter();
+
+            while (fstream.Position + 4 < fstream.Length)
+            {
+                object o = formatter.Deserialize(fstream);
+                ret.Add((FmriRequest)o);
+            }
+
+            fstream.Close();
+        }
+        catch (System.IO.FileNotFoundException e)
+        {
+
+        }
+        catch (Exception e)
+        {
+            FmriCommon.LogToFile("Exception in readFromHistory", e.Message, e.StackTrace);
+        }
+
+
+        return ret;
+    }
+
+    public void writeToHistory()
+    {
+        try
+        {
+            FileStream fstream = new FileStream(m_server.MapPath("App_Data\\history.bin"), FileMode.Append);
+            IFormatter formatter = new BinaryFormatter();
+
+            foreach (FmriRequest req in GetDoneList())
+            {
+                formatter.Serialize(fstream, req);
+            }
+
+            fstream.Close();
+        }
+        catch (Exception e)
+        {
+            FmriCommon.LogToFile("Exception in writeToHistory", e.Message, e.StackTrace);
+        }
     }
 }
