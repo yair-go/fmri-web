@@ -38,6 +38,7 @@ public partial class Control : System.Web.UI.Page
 
     protected void handleDone(List<FmriRequest> reqList, Table dest)
     {
+        reqList.Reverse();
         foreach (FmriRequest req in reqList)
         {
             TableRow r = new TableRow();
@@ -75,6 +76,7 @@ public partial class Control : System.Web.UI.Page
 
             dest.Rows.Add(r);
         }
+        reqList.Reverse();
     }
 
     protected void Page_Load(object sender, EventArgs e)
