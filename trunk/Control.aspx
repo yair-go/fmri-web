@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
     <div>
         <asp:Panel ID="pnlCurrent" runat="server">
-            <b>Currently Analyzed:</b>
+            <b>In progress:</b>
             <asp:Table ID="tblCurrent" runat="server" BorderStyle="Solid" BorderWidth="1" CellPadding="5" GridLines="Both">
                 <asp:TableHeaderRow>
                     <asp:TableHeaderCell>Filename</asp:TableHeaderCell>
@@ -49,6 +49,7 @@
                 <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Link</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Excel</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Result</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
@@ -56,7 +57,6 @@
         <br />
         <a class="large magenta awesome" href="Control.aspx">Refresh!</a><br />
     </div>
-    </form>
     <div class="footer">
         <a href="Default.aspx" class="footerlink">Home</a> |
         <a href="Upload.aspx" class="footerlink">Upload</a> |
@@ -64,6 +64,9 @@
         <a href="Results.aspx" class="footerlink">View Results</a> |
         <b>Control</b>
         <br /><br />Application Instance: <% =Application["ID"].ToString() %> | Hosting Process ID: <% =System.Diagnostics.Process.GetCurrentProcess().Id %>
+        <br /><br />
+        <asp:LinkButton ID="lnkSvnUpdate" runat="server" onclick="lnkSvnUpdate_Click" class="footerlink">Update application from SVN</asp:LinkButton> (will restart to Application instance)<br />
     </div>
+    </form>
 </body>
 </html>

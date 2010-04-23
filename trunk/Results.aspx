@@ -12,7 +12,11 @@
     <div>
         <table>
             <tr>
-                <td>Reference Number:</td>
+                <td>Excel Reference Number:</td>
+                <td><asp:TextBox ID="txtExcelID" runat="server" size="45" /></td>
+            </tr>
+            <tr>
+                <td>Image Reference Number:</td>
                 <td><asp:TextBox ID="txtID" runat="server" size="45" /></td>
             </tr>
         </table>
@@ -23,6 +27,15 @@
             <asp:Label ID="lblMsg" runat="server" />
             <br />
         </asp:Panel>
+        
+        <asp:Panel ID="pnlExcelFile" runat="server">
+            <br />
+            Download correlation matrix as: 
+            <asp:HyperLink ID="lnkExcelFile" runat="server">Excel</asp:HyperLink>, 
+            <asp:HyperLink ID="lnkZipFile" runat="server">Zipped</asp:HyperLink>.<br />
+            <br />
+        </asp:Panel>
+        
         <asp:Panel ID="pnlImage" runat="server">
             <br />
             <asp:Label runat="server" ForeColor="Green" Font-Bold="true">Your image is:</asp:Label><br />

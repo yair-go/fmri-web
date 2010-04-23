@@ -6,6 +6,10 @@
 %   * corr_matrix_out_filename (string)
 % * [case 0:]
 %   * corr_matrix_in_filename (string)
+% * should_write_xls = 0 / 1
+% * [case 1:]
+%   * xls_out_filename (string)
+%   * zip_out_filename (string)
 % * threshold (double)
 % * corr_image_out_filename (string)
 
@@ -34,6 +38,13 @@ else
 
     load(corr_matrix_in_filename);
     % corr_mtx in now loaded
+
+end
+
+if ( should_write_xls == 1)
+
+    dlmwrite(xls_out_filename, corr_mtx);
+    zip(zip_out_filename, xls_out_filename);
 
 end
 

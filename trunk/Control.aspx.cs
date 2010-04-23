@@ -64,13 +64,20 @@ public partial class Control : System.Web.UI.Page
             c.Text = Convert.ToString(req.TimeExecuted);
             r.Cells.Add(c);
 
-            c = new TableCell();
-            c.Text = "<a href=\"Results.aspx?id=" + req.AreaStringWithThresholdMD5 + "\">Results...</a>";
-            r.Cells.Add(c);
+            if (req.Result.Trim() == "OK")
+            {
+                c = new TableCell();
+                c.Text = "<a href=\"Results.aspx?id=" + req.AreaStringWithThresholdMD5 + "&id2=" + req.AreaStringMD5 + "\">Results...</a>";
+                r.Cells.Add(c);
 
-            c = new TableCell();
-            c.Text = req.Result;
-            r.Cells.Add(c);
+                c = new TableCell();
+                c.Text = "<a href=\"Excel/" + req.AreaStringMD5 + ".csv\">Excel</a>, <a href=\"Excel/" + req.AreaStringMD5 + ".zip\">Zipped</a>";
+                r.Cells.Add(c);
+
+                c = new TableCell();
+                c.Text = req.Result;
+                r.Cells.Add(c);
+            }
             
 
             tblDone.Rows.Add(r);
@@ -95,5 +102,10 @@ public partial class Control : System.Web.UI.Page
            pnlCurrent.Visible = false;
         }
 
+    }
+    protected void lnkSvnUpdate_Click(object sender, EventArgs e)
+    {
+        System.Diagnostics.Process.Start("svn", "update \"" + Server.MapPath("") + "\"").WaitForExit();
+        Response.Redirect("Control.aspx");
     }
 }
