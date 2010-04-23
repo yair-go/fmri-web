@@ -50,6 +50,10 @@ public partial class Control : System.Web.UI.Page
             r.Cells.Add(c);
 
             c = new TableCell();
+            if (req.Result.Contains("Out of memory"))
+            {
+                req.Result = "Out of memory.";
+            }
             c.Text = req.Result;
             r.Cells.Add(c);
             
