@@ -16,7 +16,7 @@
 	width:200px;
 	text-align:center;
 }
- 
+  
 	.awesome:hover							{ background-color: #111; color: #fff; }
 	.awesome:active							{ top: 1px; }
 	.awesome, .awesome:visited,
