@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
     <div align="center" width="100%">
-    Recommanded browsers are Google Chrome or Mozilla Firefox.<br /><br />
+    Recommanded browsers are Google Chrome, Mozilla Firefox or Opera.<br /><br />
     <table border="0"><tr>
     <td width="300" align="center" valign="middle">
         <img src="images/logo.png" alt="Logo" width="300" />
