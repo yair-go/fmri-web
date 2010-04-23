@@ -36,23 +36,8 @@ public partial class Control : System.Web.UI.Page
         cells.Add(c);
     }
 
-    protected void Page_Load(object sender, EventArgs e)
+    protected void handleDone(List<FmriRequest> reqList, Table dest)
     {
-        MatlabRunner m = FmriCommon.getMatlabRunner(Application, Server);
-        
-        List<FmriRequest> reqList;
-
-        reqList = m.GetQueueList();
-        foreach (FmriRequest req in reqList)
-        {
-            TableRow r = new TableRow();
-            
-            AddCells(r.Cells, req);
-
-            tblQueue.Rows.Add(r);
-        }
-
-        reqList = m.GetDoneList();
         foreach (FmriRequest req in reqList)
         {
             TableRow r = new TableRow();
@@ -78,10 +63,30 @@ public partial class Control : System.Web.UI.Page
                 c.Text = req.Result;
                 r.Cells.Add(c);
             }
-            
 
-            tblDone.Rows.Add(r);
+
+            dest.Rows.Add(r);
         }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        MatlabRunner m = FmriCommon.getMatlabRunner(Application, Server);
+        
+        List<FmriRequest> reqList;
+
+        reqList = m.GetQueueList();
+        foreach (FmriRequest req in reqList)
+        {
+            TableRow r = new TableRow();
+            
+            AddCells(r.Cells, req);
+
+            tblQueue.Rows.Add(r);
+        }
+
+        handleDone(m.GetDoneList(), tblDone);
+        handleDone( (List<FmriRequest>)Application["ReqHist"], tblHistory);       
 
         FmriRequest currReq = m.CurrentRequest;
         if (currReq != null)
