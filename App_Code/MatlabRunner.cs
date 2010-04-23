@@ -236,7 +236,7 @@ public class MatlabRunner
         }
         catch (Exception e)
         {
-            FmriCommon.LogToFile("Exception in readFromHistory", e.Message, e.StackTrace);
+            FmriCommon.LogToFile("Exception in readFromHistory: {0} [{1}]", e.Message, e.StackTrace);
         }
 
 
@@ -259,7 +259,7 @@ public class MatlabRunner
         }
         catch (Exception e)
         {
-            FmriCommon.LogToFile("Exception in writeToHistory", e.Message, e.StackTrace);
+            FmriCommon.LogToFile("Exception in writeToHistory {0} [{1}]", e.Message, e.StackTrace);
         }
     }
 }
