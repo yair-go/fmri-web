@@ -49,6 +49,10 @@ public partial class Control : System.Web.UI.Page
             c.Text = Convert.ToString(req.TimeExecuted);
             r.Cells.Add(c);
 
+            c = new TableCell();
+            c.Text = req.Result;
+            r.Cells.Add(c);
+            
             if (req.Result.Trim() == "OK")
             {
                 c = new TableCell();
@@ -57,11 +61,7 @@ public partial class Control : System.Web.UI.Page
 
                 c = new TableCell();
                 c.Text = "<a href=\"Excel/" + req.AreaStringMD5 + ".csv\">Excel</a>, <a href=\"Excel/" + req.AreaStringMD5 + ".zip\">Zipped</a>";
-                r.Cells.Add(c);
-
-                c = new TableCell();
-                c.Text = req.Result;
-                r.Cells.Add(c);
+                r.Cells.Add(c);    
             }
 
 
