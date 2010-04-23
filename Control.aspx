@@ -65,7 +65,7 @@
         <b>Control</b>
         <br /><br />Application Instance: <% =Application["ID"].ToString() %> | Hosting Process ID: <% =System.Diagnostics.Process.GetCurrentProcess().Id %>
         <br /><br />
-        <asp:LinkButton ID="lnkSvnUpdate" runat="server" onclick="lnkSvnUpdate_Click" class="footerlink">Update application from SVN</asp:LinkButton> (will restart to Application instance)<br />
+        <asp:LinkButton ID="lnkSvnUpdate" runat="server" onclick="lnkSvnUpdate_Click" class="footerlink">Update application from SVN</asp:LinkButton> (will restart the application instance)<br />
     </div>
     </form>
 </body>
