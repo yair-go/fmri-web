@@ -54,6 +54,10 @@ public partial class Control : System.Web.UI.Page
             {
                 req.Result = "Out of memory.";
             }
+            if (req.Result.Trim() != "OK")
+            {
+                c.ForeColor = System.Drawing.Color.Red;
+            }
             c.Text = req.Result;
             r.Cells.Add(c);
             
