@@ -82,10 +82,12 @@ public class MatlabRunner
     {
         FmriCommon.LogToFile("MatlabRunner - handling request: {0}", req.AreaStringWithThreshold);
         m_currentRequest = req;
-        
+
         try
         {
             string mtx_filename = FmriCommon.getMatrixDir(m_server) + req.AreaStringMD5 + ".mat";
+            string xls_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".csv";
+            string zip_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".zip";
 
             if (!System.IO.File.Exists(mtx_filename))
             {
@@ -101,6 +103,17 @@ public class MatlabRunner
                 m_matlab.Evaluate("corr_matrix_in_filename = '" + mtx_filename + "';");
             }
 
+            if (!System.IO.File.Exists(xls_filename))
+            {
+                m_matlab.Evaluate("should_write_xls = 1;");
+                m_matlab.Evaluate("xls_out_filename = '" + xls_filename + "';");
+                m_matlab.Evaluate("zip_out_filename = '" + zip_filename + "';");
+            }
+            else
+            {
+                m_matlab.Evaluate("should_write_xls = 0;");
+            }
+
             m_matlab.Evaluate("threshold = " + Convert.ToString(req.Threshold) + ";");
 
             string out_image_filename = FmriCommon.getOutImageDir(m_server) + req.AreaStringWithThresholdMD5 + ".png";
@@ -111,14 +124,17 @@ public class MatlabRunner
             req.executedNow();
             m_matlab.Evaluate("analyze;");
             req.Result = m_matlab.LastResult;
-            
+
             FmriCommon.LogToFile("MatlabRunner - matlab done: {0}", req.Result);
-            m_currentRequest = null;
         }
         catch (Exception e)
         {
             req.Result = e.Message;
-            FmriCommon.LogToFile("MatlabRunner - exception caught: {0} [{1}]", e.Message,  e.StackTrace);
+            FmriCommon.LogToFile("MatlabRunner - exception caught: {0} [{1}]", e.Message, e.StackTrace);
+        }
+        finally
+        {
+            m_currentRequest = null;
         }
 
         

@@ -25,6 +25,11 @@ public class FmriCommon
         return Server.MapPath(@"Results") + "\\";
     }
 
+    public static string getExcelDir(HttpServerUtility Server)
+    {
+        return Server.MapPath(@"Excel") + "\\";
+    }
+
     public static bool isOutImageExists(string md5, HttpServerUtility Server)
     {
         return System.IO.File.Exists(FmriCommon.getOutImageDir(Server) + md5 + ".png");

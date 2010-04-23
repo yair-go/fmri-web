@@ -89,6 +89,7 @@
         <asp:Panel ID="pnlRefArea" runat="server" Visible="false">
             <br /><hr /><br />
             <asp:HiddenField ID="refStr" runat="server" />
+            <asp:HiddenField ID="refNoThreshold" runat="server" />
             <span style="font-weight:bold">
                 <asp:Label ID="lblRef" runat="server" Text="" ForeColor="Blue" />
             </span><br />

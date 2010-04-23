@@ -40,6 +40,7 @@ public partial class Analyze: System.Web.UI.Page
 
         FmriRequest req = new FmriRequest(imageName, x1, x2, y1, y2, z1, z2, threshold);
         refStr.Value = req.AreaStringWithThresholdMD5;
+        refNoThreshold.Value = req.AreaStringMD5;
 
         debugString("AreaString: " + req.AreaString + " (" + req.AreaStringMD5 + ")");
         debugString("AreaStringWithThreshold: " + req.AreaStringWithThreshold + " (" + req.AreaStringWithThresholdMD5 + ")");
@@ -77,6 +78,6 @@ public partial class Analyze: System.Web.UI.Page
 
     protected void btnGoToResults_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Results.aspx?id=" + refStr.Value);
+        Response.Redirect("Results.aspx?id=" + refStr.Value + "&id2=" + refNoThreshold.Value);
     }
 }
