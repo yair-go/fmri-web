@@ -224,8 +224,16 @@ public class MatlabRunner
 
             while (fstream.Position + 4 < fstream.Length)
             {
-                object o = formatter.Deserialize(fstream);
-                ret.Add((FmriRequest)o);
+                object o = null;
+                try
+                {
+                    o = formatter.Deserialize(fstream);
+                    ret.Add((FmriRequest)o);
+                }
+                catch (InvalidCastException e)
+                {
+                    FmriCommon.LogToFile("Exception in readFromHistory ({0}): {1} [{2}]", o.ToString(), e.Message, e.StackTrace);
+                }
             }
 
             fstream.Close();
