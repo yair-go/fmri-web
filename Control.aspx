@@ -72,6 +72,9 @@
         
         <br />
         <a class="large magenta awesome" href="Control.aspx">Refresh!</a><br />
+        <br />
+        <b>Note: </b> the "history" feature does not work properly. It might "forget" some requests. The bug will be fixed soon. Sorry.
+        <br /><br />
     </div>
     <div class="footer">
         <a href="Default.aspx" class="footerlink">Home</a> |
