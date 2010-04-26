@@ -20,7 +20,8 @@
 	.awesome:hover							{ background-color: #111; color: #fff; }
 	.awesome:active							{ top: 1px; }
 	.awesome, .awesome:visited,
-	.large.awesome, .large.awesome:visited 	{ font-size: 25px; padding: 8px 14px 9px; }
+	.small.awesome, .small.awesome:visited 			{ font-size: 14px; width:60px;}
+	.large.awesome, .large.awesome:visited 	{ font-size: 25px; padding: 8px 14px 9px; width:200px; }
 	
 	.green.awesome, .green.awesome:visited		{ background-color: #91bd09; }
 	.green.awesome:hover						{ background-color: #749a02; }
