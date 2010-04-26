@@ -30,9 +30,9 @@
         
         <asp:Panel ID="pnlExcelFile" runat="server">
             <br />
-            Download correlation matrix as: 
-            <asp:HyperLink ID="lnkExcelFile" runat="server">Excel</asp:HyperLink>, 
-            <asp:HyperLink ID="lnkZipFile" runat="server">Zipped</asp:HyperLink>.<br />
+            Download correlation matrix as: &nbsp;&nbsp;
+            <asp:HyperLink ID="lnkExcelFile" runat="server" class="small awesome">Excel</asp:HyperLink>&nbsp;&nbsp; 
+            <asp:HyperLink ID="lnkZipFile" runat="server" class="small awesome">Zipped</asp:HyperLink><br />
             <br />
         </asp:Panel>
         

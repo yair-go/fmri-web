@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 public partial class Control : System.Web.UI.Page
 {
@@ -36,14 +37,22 @@ public partial class Control : System.Web.UI.Page
         cells.Add(c);
     }
 
-    protected void handleDone(List<FmriRequest> reqList, Table dest)
+    protected void handleDone(List<FmriRequest> reqList, Table dest, string status, Color bg, Color fg)
     {
         reqList.Reverse();
         foreach (FmriRequest req in reqList)
         {
             TableRow r = new TableRow();
+            r.Height = 40;
+            
             TableCell c;
 
+            c = new TableCell();
+            c.Text = status;
+            c.BackColor = bg;
+            c.ForeColor = fg;
+            r.Cells.Add(c);
+            
             AddCells(r.Cells, req);
 
             c = new TableCell();
@@ -57,7 +66,7 @@ public partial class Control : System.Web.UI.Page
             }
             if (req.Result.Trim() != "OK")
             {
-                c.ForeColor = System.Drawing.Color.Red;
+                c.ForeColor = Color.Red;
             }
             c.Text = req.Result;
             r.Cells.Add(c);
@@ -65,11 +74,11 @@ public partial class Control : System.Web.UI.Page
             if (req.Result.Trim() == "OK")
             {
                 c = new TableCell();
-                c.Text = "<a href=\"Results.aspx?id=" + req.AreaStringWithThresholdMD5 + "&id2=" + req.AreaStringMD5 + "\">Results...</a>";
+                c.Text = "<a href=\"Results.aspx?id=" + req.AreaStringWithThresholdMD5 + "&id2=" + req.AreaStringMD5 + "\" class=\"small orange awesome\">Results</a>";
                 r.Cells.Add(c);
 
                 c = new TableCell();
-                c.Text = "<a href=\"Excel/" + req.AreaStringMD5 + ".csv\">Excel</a>, <a href=\"Excel/" + req.AreaStringMD5 + ".zip\">Zipped</a>";
+                c.Text = "<a href=\"Excel/" + req.AreaStringMD5 + ".csv\"\" class=\"small awesome\">Excel</a>&nbsp;&nbsp;<a href=\"Excel/" + req.AreaStringMD5 + ".zip\"\" class=\"small awesome\">Zipped</a>";
                 r.Cells.Add(c);    
             }
 
@@ -86,36 +95,52 @@ public partial class Control : System.Web.UI.Page
         List<FmriRequest> reqList;
 
         reqList = m.GetQueueList();
+        reqList.Reverse();
         foreach (FmriRequest req in reqList)
         {
             TableRow r = new TableRow();
+            r.Height = 40;
+            
+            TableCell c;
+
+            c = new TableCell();
+            c.Text = "Queue";
+            c.BackColor = Color.Orange;
+            r.Cells.Add(c);
             
             AddCells(r.Cells, req);
 
-            tblQueue.Rows.Add(r);
+            tblReq.Rows.Add(r);
         }
+        reqList.Reverse();
 
-        handleDone(m.GetDoneList(), tblDone);
-        handleDone( (List<FmriRequest>)Application["ReqHist"], tblHistory);       
-
+        
         FmriRequest currReq = m.CurrentRequest;
         if (currReq != null)
         {
-           TableRow r = new TableRow();
-           TableCell c;
+            TableRow r = new TableRow();
+            r.Height = 40;
+            
+            TableCell c;
 
-           AddCells(r.Cells, currReq);
+            c = new TableCell();
+            c.Text = "In Progress";
+            c.BackColor = Color.DarkGreen;
+            c.ForeColor = Color.White;
+            r.Cells.Add(c);
 
-           c = new TableCell();
-           c.Text = Convert.ToString(currReq.TimeExecuted);
-           r.Cells.Add(c);
+            AddCells(r.Cells, currReq);
 
-           tblCurrent.Rows.Add(r);
+            c = new TableCell();
+            c.Text = Convert.ToString(currReq.TimeExecuted);
+            r.Cells.Add(c);
+
+            tblReq.Rows.Add(r);
         }
-        else
-        {
-           pnlCurrent.Visible = false;
-        }
+
+        handleDone(m.GetDoneList(), tblReq, "Finished", Color.DarkSlateBlue, Color.White);
+        handleDone((List<FmriRequest>)Application["ReqHist"], tblReq, "History", Color.LightGray, Color.Black);       
+
 
     }
     protected void lnkSvnUpdate_Click(object sender, EventArgs e)
