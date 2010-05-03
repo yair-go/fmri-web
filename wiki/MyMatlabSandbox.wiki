@@ -7,6 +7,16 @@ boolean_mtx = round(abs(mtx));
 imwrite(boolean_mtx, 'file.png', 'BitDepth', 1);
 }}}
 
+You can subscruct `threashold - 0.5`, from the matrix abs values, to handle threashold.
+
+=Save matrix to CSV file=
+Say `mtx` is a 2-D matrix, and we want to save it into `'file.csv'`:
+{{{
+dlmwrite(mtx, 'file.csv');
+}}}
+
+You can subscruct `threashold - 0.5`, from the matrix abs values, to handle threashold.
+
 
 =Save/Load Matrix to/from a 'mat' file=
 Say `mtx` is a 2-D matrix of voxel correlations, and we want to save it into `'myfile.mat'`:
