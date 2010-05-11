@@ -27,10 +27,17 @@ namespace CliqueAlgo
             int min = Convert.ToInt32(args[2]);
             int max = Convert.ToInt32(args[3]);
 
-            DateTime before = DateTime.Now;
+            DateTime beforeRead = DateTime.Now;
 
             CL_Graph g = new CL_Graph(threshold, csv_filename);
-            foreach (Set<int> i in g.All_Cliques(min, max))
+
+            DateTime afterRead = DateTime.Now;
+
+            System.Collections.Generic.List<Set<int>> result = g.All_Cliques(min, max);
+
+            DateTime afterCalc = DateTime.Now;
+
+            foreach (Set<int> i in result)
             {
                 if (i.Count >= min)
                 {
@@ -39,7 +46,8 @@ namespace CliqueAlgo
             }
 
             Console.WriteLine();
-            Console.WriteLine("Time consumed: " + (DateTime.Now - before));
+            Console.WriteLine("Read CSV file: " + (afterRead - beforeRead));
+            Console.WriteLine("Calculation:   " + (afterCalc - afterRead));
         }
     }
 }
