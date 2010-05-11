@@ -36,9 +36,10 @@ import java.util.Vector;
 			String s = is.readLine();
 			StringTokenizer st = new StringTokenizer(s,", ");
 			int len = st.countTokens();
-			
+			int line = 0;
 			while(s!=null) {
-				int line = 0;
+			
+				System.out.println(line);
 				VertexSet vs = new VertexSet();
 				for(int i=0;i<len;i++) {
 					float v = new Double(st.nextToken()).floatValue();
@@ -80,7 +81,43 @@ import java.util.Vector;
 		} // for
 		return ans;
 	}
-
+	Vector<VertexSet>  All_Cliques(int min_Q_size, int max_Q_size) {
+		Vector<VertexSet> ans = new Vector<VertexSet>();
+		Vector<VertexSet> C0 = allEdges(), C1=null; // all edges – all cliques of size 2/
+		for(int i=0;i<C0.size();i++) {
+			VertexSet curr = C0.elementAt(i);
+			C1 = All_Cliques_of_edge(curr, min_Q_size,  max_Q_size);
+//			System.out.println("Edge: ["+curr.at(0)+","+curr.at(1)+"]");
+			ans.addAll(C1);
+		}
+		return ans;
+	}
+	/**
+	 * this method retuns all the Cliques of size between [min,max] which contains the subVertexSet e (usually an edge);
+	 * @param min_Q_size
+	 * @param max_Q_size
+	 * @return
+	 */
+	Vector<VertexSet>  All_Cliques_of_edge(VertexSet e, int min_Q_size, int max_Q_size) {
+		Vector<VertexSet> ans = new Vector<VertexSet>();
+		ans.add(e);
+		int i=0;
+		int last_size = e.size();
+		while(i<ans.size() & last_size <=max_Q_size) {
+			VertexSet curr = ans.elementAt(i);
+			VertexSet inter = intersection(curr);
+			addbiggerCliQ(ans,curr,inter);
+			last_size = ans.elementAt(ans.size()-1).size(); 
+			i++;
+		}
+		int start = 0; i=0;
+		while(i<ans.size() && start==0) {
+			if(ans.elementAt(i).size()<min_Q_size) {ans.remove(0);}
+			else start=1;
+			i++;
+		}
+		return ans;
+	}
 	Vector<VertexSet> allC(Vector<VertexSet> C0) {
 		Vector<VertexSet> ans = new Vector<VertexSet>();
 		for(int i=0;i<C0.size();i++) {
@@ -107,6 +144,19 @@ import java.util.Vector;
 				ans.add(c);
 			}
 		}
+	}
+	private Vector<VertexSet> addbiggerCliQ(VertexSet curr ,VertexSet inter) {
+		Vector<VertexSet> ans = new Vector<VertexSet>(inter.size());
+		int last = curr.at(curr.size()-1); // last vertex in the current clique (ordered!)
+		for(int i=0;i<inter.size();i++) {
+			int ind_inter = inter.at(i);
+			if(last<ind_inter) {
+				VertexSet c = new VertexSet(curr);
+				c.add(ind_inter);
+				ans.add(c);
+			}
+		}
+		return ans;
 	}
 	/**
 	 * computes all the 2 cliques --> i.e. all the edges 
