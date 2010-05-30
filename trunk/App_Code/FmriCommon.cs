@@ -30,6 +30,16 @@ public class FmriCommon
         return Server.MapPath(@"Excel") + "\\";
     }
 
+    public static string getCliquesDir(HttpServerUtility Server)
+    {
+        return Server.MapPath(@"Cliques") + "\\";
+    }
+    
+    public static string getJarFilename(HttpServerUtility Server)
+    {
+        return Server.MapPath(@"resources") + "\\All_Cliques2.jar";
+    }
+    
     public static bool isOutImageExists(string md5, HttpServerUtility Server)
     {
         return System.IO.File.Exists(FmriCommon.getOutImageDir(Server) + md5 + ".png");

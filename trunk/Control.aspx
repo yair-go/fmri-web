@@ -19,11 +19,15 @@
                 <asp:TableHeaderCell>Y</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Z</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Threshold</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Time</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Clique</asp:TableHeaderCell>
+                <asp:TableHeaderCell>IP</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Submitted</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Executed</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Result</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Link</asp:TableHeaderCell>
                 <asp:TableHeaderCell>Excel</asp:TableHeaderCell>
+                <asp:TableHeaderCell>Cliques</asp:TableHeaderCell>
             </asp:TableHeaderRow>
         </asp:Table>
         

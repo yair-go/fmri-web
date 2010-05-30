@@ -11,6 +11,8 @@ public partial class Results : System.Web.UI.Page
     {
         if (!string.IsNullOrEmpty(id))
         {
+            pnlImage.Visible = false;
+
             if (FmriCommon.isOutImageExists(id, Server))
             {
                 imgResult.ImageUrl = "Results/" + id + ".png";
@@ -20,7 +22,14 @@ public partial class Results : System.Web.UI.Page
             {
                 lblMsg.Text = "File does not exist yet. Please try again later.<br />";
                 lblMsg.ForeColor = System.Drawing.Color.DarkRed;
-                pnlImage.Visible = false;
+            }
+
+            string clique_filename = FmriCommon.getCliquesDir(Server) + id + ".txt";
+
+            if (System.IO.File.Exists(clique_filename))
+            {
+                lnkCliques.NavigateUrl = "Cliques/" + id + ".txt";
+                pnlImage.Visible = true;
             }
         }
         else

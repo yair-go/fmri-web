@@ -33,6 +33,18 @@ public partial class Control : System.Web.UI.Page
         cells.Add(c);
 
         c = new TableCell();
+        c.Text = "" + req.T1 + "-" + req.T2;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = "" + req.CS1 + "-" + req.CS2;
+        cells.Add(c);
+
+        c = new TableCell();
+        c.Text = req.IPAddress;
+        cells.Add(c);
+        
+        c = new TableCell();
         c.Text = Convert.ToString(req.TimeSubmitted);
         cells.Add(c);
     }
@@ -79,7 +91,11 @@ public partial class Control : System.Web.UI.Page
 
                 c = new TableCell();
                 c.Text = "<a href=\"Excel/" + req.AreaStringMD5 + ".csv\"\" class=\"small awesome\">Excel</a>&nbsp;&nbsp;<a href=\"Excel/" + req.AreaStringMD5 + ".zip\"\" class=\"small awesome\">Zipped</a>";
-                r.Cells.Add(c);    
+                r.Cells.Add(c);
+
+                c = new TableCell();
+                c.Text = "<a href=\"Cliques/" + req.AreaStringWithThresholdMD5 + ".txt\"\" class=\"small awesome\">Cliques</a>";
+                r.Cells.Add(c);
             }
 
 

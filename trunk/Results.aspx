@@ -38,6 +38,9 @@
         
         <asp:Panel ID="pnlImage" runat="server">
             <br />
+            Download Cliques list:
+            <asp:HyperLink ID="lnkCliques" runat="server" class="small awesome">Cliques</asp:HyperLink>&nbsp;&nbsp; 
+            <br />
             <asp:Label runat="server" ForeColor="Green" Font-Bold="true">Your image is:</asp:Label><br />
             Black pixel represents "no correlation". White pixel represent a correlation above the given threshold.<br />
             Note that the image is duplicated (mirror axis from top-left to bottom-right is always white).<br />

@@ -36,7 +36,8 @@ namespace CliqueAlgo
                 foreach (string t in line.Split(",".ToCharArray()))
                 {
                     double val = Convert.ToDouble(t);
-                    if (Math.Abs(val) > m_threshold)
+                    //if (Math.Abs(val) > m_threshold)
+                    if (val > m_threshold)
                     {
                         s.Add(colCounter);
                     }
