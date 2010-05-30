@@ -2,7 +2,7 @@
 % * should_calc_corr_matrix = 0 / 1
 % * [case 1:]
 %   * src_image_filename (string)
-%   * x1, x2, y1, y2, z1, z2 (integer)
+%   * x1, x2, y1, y2, z1, z2, t1, t2 (integer)
 %   * corr_matrix_out_filename (string)
 % * [case 0:]
 %   * corr_matrix_in_filename (string)
@@ -22,7 +22,7 @@ if ( should_calc_corr_matrix == 1)
     x2 = x2+1;
     y2 = y2+1;
     z2 = z2+1;
-    subcube = SM(:, [x1:x2], [y1:y2], [z1:z2]);
+    subcube = SM([t1:t2], [x1:x2], [y1:y2], [z1:z2]);
     
     [t_range x_range y_range z_range] = size(subcube);
     voxel_count = x_range * y_range * z_range;

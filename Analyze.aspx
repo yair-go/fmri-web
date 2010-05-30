@@ -76,6 +76,36 @@
                     </asp:RangeValidator>
                 </td>
             </tr>
+            <tr>
+                <td>Time range:</td>
+                <td>
+                    <asp:TextBox ID="txtT1" runat="server" Columns="4" Text="1" /> to 
+                    <asp:TextBox ID="txtT2" runat="server" Columns="4" Text="132" />
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="<br />T1 is required!" ControlToValidate="txtT1" Display="Dynamic" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="<br />T2 is required!" ControlToValidate="txtT2" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="<br />T1 should be a number!" ControlToValidate="txtT1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator12" runat="server" ErrorMessage="<br />T2 should be a number!" ControlToValidate="txtT2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator8" runat="server" ErrorMessage="<br />T1 range is: [1,131]" ControlToValidate="txtT1" MinimumValue="1" MaximumValue="131" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator9" runat="server" ErrorMessage="<br />T2 range is: [2,132]" ControlToValidate="txtT2" MinimumValue="2" MaximumValue="132" Type="Integer" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator13" runat="server" ErrorMessage="<br />T2 should be greater than T1!" ControlToValidate="txtT2" ControlToCompare="txtT1" Type="Integer" Operator="GreaterThan" Display="Dynamic" />
+                </td>
+            </tr>
+            <tr>
+                <td>Clique size</td>
+                <td>
+                    <asp:TextBox ID="txtCS1" runat="server" Columns="4" /> to 
+                    <asp:TextBox ID="txtCS2" runat="server" Columns="4" />
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="<br />CS1 is required!" ControlToValidate="txtCS1" Display="Dynamic" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="<br />CS2 is required!" ControlToValidate="txtCS2" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br />CS1 should be a number!" ControlToValidate="txtCS1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="<br />CS2 should be a number!" ControlToValidate="txtCS2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
+                    <asp:CompareValidator ID="CompareValidator16" runat="server" ErrorMessage="<br />CS2 should be greater than CS1!" ControlToValidate="txtCS2" ControlToCompare="txtCS1" Type="Integer" Operator="GreaterThanEqual" Display="Dynamic" />
+                </td>
+            </tr>
         </table>
         <asp:LinkButton ID="btnSubmit" runat="server" onclick="btnSubmit_Click" Text="Analyze!" class="large green awesome" />
         

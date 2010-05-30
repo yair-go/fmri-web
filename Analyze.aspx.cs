@@ -30,7 +30,9 @@ public partial class Analyze: System.Web.UI.Page
         int x1, int x2,
         int y1, int y2,
         int z1, int z2,
-        double threshold)
+        double threshold,
+        int t1, int t2,
+        int cs1, int cs2)
     {
         debugString("Running on image: " + imageName);
         debugString("X=[" + x1 + "," + x2 + "]");
@@ -38,7 +40,7 @@ public partial class Analyze: System.Web.UI.Page
         debugString("Z=[" + z1 + "," + z2 + "]");
         debugString("Threshold: " + threshold);
 
-        FmriRequest req = new FmriRequest(imageName, x1, x2, y1, y2, z1, z2, threshold);
+        FmriRequest req = new FmriRequest(imageName, x1, x2, y1, y2, z1, z2, threshold, t1, t2, cs1, cs2, Request.UserHostAddress);
         refStr.Value = req.AreaStringWithThresholdMD5;
         refNoThreshold.Value = req.AreaStringMD5;
 
@@ -71,8 +73,12 @@ public partial class Analyze: System.Web.UI.Page
         int z1 = Convert.ToInt32(txtZ1.Text);
         int z2 = Convert.ToInt32(txtZ2.Text);
         double threshold = Convert.ToDouble(txtThreshold.Text);
-
-        execute(imageName, x1, x2, y1, y2, z1, z2, threshold);
+        int t1 = Convert.ToInt32(txtT1.Text);
+        int t2 = Convert.ToInt32(txtT2.Text);
+        int cs1 = Convert.ToInt32(txtCS1.Text);
+        int cs2 = Convert.ToInt32(txtCS2.Text);
+        
+        execute(imageName, x1, x2, y1, y2, z1, z2, threshold, t1, t2, cs1, cs2);
         pnlRefArea.Visible = true;
     }
 

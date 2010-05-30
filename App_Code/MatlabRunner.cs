@@ -100,18 +100,19 @@ public class MatlabRunner
         FmriCommon.LogToFile("MatlabRunner - handling request: {0}", req.AreaStringWithThreshold);
         m_currentRequest = req;
 
+        string mtx_filename = FmriCommon.getMatrixDir(m_server) + req.AreaStringMD5 + ".mat";
+        string xls_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".csv";
+        string zip_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".zip";
+        
         try
         {
-            string mtx_filename = FmriCommon.getMatrixDir(m_server) + req.AreaStringMD5 + ".mat";
-            string xls_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".csv";
-            string zip_filename = FmriCommon.getExcelDir(m_server) + req.AreaStringMD5 + ".zip";
-
+            
             if (!System.IO.File.Exists(mtx_filename))
             {
                 RunMatlabAndLog("should_calc_corr_matrix = 1;");
                 RunMatlabAndLog("src_image_filename = '" + FmriCommon.getSrcImageDir(m_server) + req.ImageName + "';");
-                object[] range = { req.X1, req.X2, req.Y1, req.Y2, req.Z1, req.Z2 };
-                RunMatlabAndLog(String.Format("x1={0};x2={1};y1={2};y2={3};z1={4};z2={5};", range));
+                object[] range = { req.X1, req.X2, req.Y1, req.Y2, req.Z1, req.Z2, req.T1, req.T2 };
+                RunMatlabAndLog(String.Format("x1={0};x2={1};y1={2};y2={3};z1={4};z2={5};t1={6};t2={7};", range));
                 RunMatlabAndLog("corr_matrix_out_filename = '" + mtx_filename + "';");
             }
             else
@@ -136,7 +137,6 @@ public class MatlabRunner
             string out_image_filename = FmriCommon.getOutImageDir(m_server) + req.AreaStringWithThresholdMD5 + ".png";
             RunMatlabAndLog("corr_image_out_filename = '" + out_image_filename + "';");
 
-
             // Finished initializing variables. Run the MATLAB script now!
             req.executedNow();
             RunMatlabAndLog("analyze;");
@@ -152,6 +152,45 @@ public class MatlabRunner
             m_currentRequest = null;
         }
 
+        try
+        {
+            string clique_filename = FmriCommon.getCliquesDir(m_server) + req.AreaStringWithThresholdMD5 + ".txt";
+            string jar_filename = FmriCommon.getJarFilename(m_server);
+
+            object[] commandline = { jar_filename, xls_filename, req.Threshold, req.CS1, req.CS2, clique_filename };
+            System.Diagnostics.ProcessStartInfo psinfo = new System.Diagnostics.ProcessStartInfo(
+                "java",
+                String.Format("-jar {0} {1} {2} {3} {4} {5}", commandline));
+            psinfo.RedirectStandardError = true;
+            psinfo.RedirectStandardOutput = true;
+            psinfo.UseShellExecute = false;
+            System.Diagnostics.Process java = System.Diagnostics.Process.Start(psinfo);
+            FmriCommon.LogToFile("JAVA: started, PID=" + java.Id);
+            java.WaitForExit();
+
+            FmriCommon.LogToFile("JAVA: finished, ExitCode=" + java.ExitCode);
+            string stdout = java.StandardOutput.ReadToEnd().Trim();
+            string stderr = java.StandardError.ReadToEnd().Trim();
+            
+            if( stdout != "" && stderr != "" )
+            {
+                req.CliquesResult = stdout + ";\n" + stderr;
+            }
+            else if(stdout != "")
+            {
+                req.CliquesResult = stdout;
+            }
+            else
+            {
+                req.CliquesResult = stderr;
+            }
+            FmriCommon.LogToFile("JAVA: " + req.CliquesResult);            
+        }
+        catch (Exception e)
+        {
+            req.CliquesResult = e.Message;
+            FmriCommon.LogToFile("MatlabRunner - exception caught (cliques): {0} [{1}]", e.Message, e.StackTrace);
+        }
         
         lock (m_doneList)
         {
