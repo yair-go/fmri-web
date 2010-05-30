@@ -27,7 +27,7 @@
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />X1 should be a number!" ControlToValidate="txtX1" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="<br />X2 should be a number!" ControlToValidate="txtX2" Type="Integer" Operator="DataTypeCheck" Display="Dynamic" />
                     <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="<br />X1 range is: [1,95]" ControlToValidate="txtX1" MinimumValue="1" MaximumValue="95" Type="Integer" Display="Dynamic" />
-                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="<br />X2 range is: [1,95]" ControlToValidate="txtX2" MinimumValue="1" MaximumValue="950" Type="Integer" Display="Dynamic" />
+                    <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="<br />X2 range is: [1,95]" ControlToValidate="txtX2" MinimumValue="1" MaximumValue="95" Type="Integer" Display="Dynamic" />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />X2 should be greater than X1!" ControlToValidate="txtX2" ControlToCompare="txtX1" Type="Integer" Operator="GreaterThan" Display="Dynamic" />
 
                 </td>
